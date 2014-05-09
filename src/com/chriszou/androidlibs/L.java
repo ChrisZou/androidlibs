@@ -10,7 +10,7 @@ public class L {
 	private static final String CLASS_METHOD_LINE_FORMAT = "%s.%s() Line:%d---------%s";
 	public static void l(String msg) {
         if(debug) {
-            StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];// 从堆栈信息中获取当前被调用的方法信息
+            StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];
             String className = traceElement.getClassName();
             String simpleClassName = className.contains(".")?className.substring(className.lastIndexOf(".")+1):className;
             
@@ -23,7 +23,7 @@ public class L {
 
 	public static void e(String msg) {
 		if (debug) {
-			StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];// 从堆栈信息中获取当前被调用的方法信息
+			StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];
 			String className = traceElement.getClassName();
 			String simpleClassName = className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
 
@@ -35,7 +35,7 @@ public class L {
 	}
 
 	   public static void trace() {
-	        StackTraceElement[] traceElements = Thread.currentThread().getStackTrace();// 从堆栈信息中获取当前被调用的方法信息
+	        StackTraceElement[] traceElements = Thread.currentThread().getStackTrace();
 	        Log.d("zyzy", "trace-------------------------------------------------------------------------");
 	        int len = traceElements.length;
 	        for (int i=len-1; i>=0; i--) {
