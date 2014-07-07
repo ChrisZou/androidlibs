@@ -24,7 +24,7 @@ public class Prefs {
      * Call this in customized {@link Application} class's onCreate() method before any usage of this class
      * @param context
      */
-    public static void init(Context context) {
+    static void init(Context context) {
 		sPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 	}
     

@@ -21,7 +21,7 @@ public class Res {
      * This method should called in customized {@link Application} class's onCreate() 
 	 * @param context
 	 */
-	public static void init(Context context){
+	static void init(Context context){
 		sInstance = context.getResources();
 	}
     

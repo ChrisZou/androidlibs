@@ -12,7 +12,7 @@ import android.content.Context;
  * @author zouyong
  *
  */
-public class MyApplication extends Application {
+public class UtilApplication extends Application {
 
 	@Override
 	public void onCreate() {
@@ -27,6 +27,7 @@ public class MyApplication extends Application {
 	 */
 	private void initUtils(Context context){
         Prefs.init(context);
+        Res.init(context);
 	}
-
+    
 }
