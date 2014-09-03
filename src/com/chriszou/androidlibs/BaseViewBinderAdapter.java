@@ -7,6 +7,8 @@ package com.chriszou.androidlibs;
 
 import java.util.List;
 
+import android.R.anim;
+import android.R.integer;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,9 @@ public class BaseViewBinderAdapter<E> extends BaseListAdapter<E>{
         mViewBinder = viewBinder;
 	}
 
+    public BaseViewBinderAdapter(Context context, List<E> data, ViewBinder<E> viewBinder) {
+    	this(context, data, android.R.layout.simple_list_item_1,viewBinder);
+    }
 	/* (non-Javadoc)
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
@@ -37,12 +42,12 @@ public class BaseViewBinderAdapter<E> extends BaseListAdapter<E>{
         	convertView = mInflater.inflate(mItemLayoutRes, null);
         }
         
-        mViewBinder.bindView(convertView, getItem(position), parent);
+        mViewBinder.bindView(position, convertView, getItem(position), parent);
         return convertView;
 	}
 	
 	public static interface ViewBinder<E> {
-		public void bindView(View view, E item, ViewGroup parent);
+		public void bindView(int position, View view, E item, ViewGroup parent);
 	}
 
 }

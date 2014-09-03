@@ -32,6 +32,6 @@ public class AlarmHelper {
         PendingIntent pi = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         AlarmManager aManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        aManager.set(AlarmManager.RTC_WAKEUP, time, pi);
+        aManager.setExact(AlarmManager.RTC, time, pi);
     }
 }
