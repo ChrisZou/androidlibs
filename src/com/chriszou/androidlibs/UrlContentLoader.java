@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.os.Handler;
@@ -23,7 +24,24 @@ public class UrlContentLoader {
     	mUrl = url;
     }
     
-	public void execute(final CallBack callBack) {
+	/**
+	 * This will be executed in the same thread as the caller.
+	 * @param callBack
+	 * @throws IOException 
+	 */
+	public String executeSync() throws IOException{
+		URL url = new URL(mUrl);
+		InputStream is = url.openStream();
+		String contentString = inputStreamToString(is);
+		is.close();
+        return contentString;
+	}
+    
+	/**
+	 * This should be called from UI thread since the actual execution will be in a different thread. 
+	 * @param callBack
+	 */
+	public void execute(final Callback callBack) {
         final Handler handler = new Handler();
         
 		Runnable runnable = new Runnable() {
@@ -77,9 +95,29 @@ public class UrlContentLoader {
 		return sb.toString();
 	}
 	
-	public static interface CallBack {
+	/**
+     * Callback listener for loading url content
+	 * @author zouyong
+	 *
+	 */
+	public static interface Callback {
         public void onSucceed(String content);
         public void onFailed(String msg);
         public void onCanceld();
+	}
+    
+	/**
+     * A {@link Callback} that only cares when the loading process succeed
+	 * @author zouyong
+	 *
+	 */
+	public static abstract class SucceedCallback implements Callback {
+		public abstract void onSucceed(String content);
+        
+        public void onFailed(String msg) {
+        	L.e("Error when loading content: "+msg);
+        }
+        public void onCanceld() {
+        }
 	}
 }
