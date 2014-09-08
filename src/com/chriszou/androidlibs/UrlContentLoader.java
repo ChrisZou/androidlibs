@@ -77,9 +77,29 @@ public class UrlContentLoader {
 		return sb.toString();
 	}
 	
+	/**
+     * Callback listener for loading url content
+	 * @author zouyong
+	 *
+	 */
 	public static interface CallBack {
         public void onSucceed(String content);
         public void onFailed(String msg);
         public void onCanceld();
+	}
+    
+	/**
+     * A {@link CallBack} that only cares when the loading process succeed
+	 * @author zouyong
+	 *
+	 */
+	public static abstract class SucceedCallback implements CallBack {
+		public abstract void onSucceed(String content);
+        
+        public void onFailed(String msg) {
+        	L.e("Error when loading content: "+msg);
+        }
+        public void onCanceld() {
+        }
 	}
 }
