@@ -17,21 +17,24 @@ import android.os.Bundle;
  *
  */
 public class AlarmHelper {
-	
-    private Context mContext;
-    public static final String EXTRA_EXTRA = "extra_extra";
-    
-    public AlarmHelper(Context context){
-    	this.mContext = context;
-    }
-    
-    public void setAlarm(Context context, int id, long time, String runnerName, Bundle extras) {
-    	Intent intent = new Intent(mContext, AlarmReceiver.class);
-        intent.putExtra(EXTRA_EXTRA, extras);
-    	intent.putExtra(AlarmReceiver.EXTRA_STRING_RUNNER, runnerName);
-        PendingIntent pi = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        
-        AlarmManager aManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+	private Context mContext;
+	public static final String EXTRA_EXTRA = "extra_extra";
+
+	public AlarmHelper(Context context){
+		this.mContext = context;
+	}
+
+	public void setAlarm(Context context, int id, long time, String runnerName, Bundle extras) {
+		Intent intent = new Intent(mContext, AlarmReceiver.class);
+		intent.putExtra(EXTRA_EXTRA, extras);
+		intent.putExtra(AlarmReceiver.EXTRA_STRING_RUNNER, runnerName);
+		PendingIntent pi = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		AlarmManager aManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		aManager.set(AlarmManager.RTC, time, pi);
-    }
+
+		Logger.log(context, "Set alarm on: "+CalendarUtil.getDateTimeString(time));
+		L.l("set alarm on: "+CalendarUtil.getDateTimeString(time));
+	}
 }

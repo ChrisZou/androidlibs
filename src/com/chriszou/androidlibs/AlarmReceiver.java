@@ -14,21 +14,23 @@ import android.content.Intent;
  *
  */
 public class AlarmReceiver extends BroadcastReceiver{
-    public static final String EXTRA_STRING_RUNNER = "extra_string_runner";
+	public static final String EXTRA_STRING_RUNNER = "extra_string_runner";
 
 	/* (non-Javadoc)
 	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-        String runnerClass = intent.getStringExtra(EXTRA_STRING_RUNNER);
-        try {
-        	Class clz = Class.forName(runnerClass);
+		Logger.log(context, "onReceive");
+		L.l("onreceive");
+		String runnerClass = intent.getStringExtra(EXTRA_STRING_RUNNER);
+		try {
+			Class clz = Class.forName(runnerClass);
 			AlarmRunner runner =(AlarmRunner) clz.newInstance();
-            runner.run(context, intent);
+			runner.run(context, intent);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 }
