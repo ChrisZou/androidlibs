@@ -13,16 +13,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.chriszou.androidlibs.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <receiver android:name="com.chriszou.androidlibs.AlarmReceiver"/>
+       <receiver android:name="com.chriszou.androidlibs.AlarmReceiver"/>
     </application>
 
 </manifest>
