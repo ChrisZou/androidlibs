@@ -1,6 +1,6 @@
 /**
  * Notifier.java
- * 
+ *
  * Created by zouyong on Sep 8, 2014,2014
  */
 package com.chriszou.androidlibs;
@@ -21,14 +21,16 @@ public class Notifier {
 
     private boolean mOnGoing;
     public Context mContext;
+
     public Notifier(Context context) {
     	mContext = context;
+        mOnGoing = false;
     }
-    
+
     public void setOnGoing(boolean ongoing) {
     	mOnGoing = ongoing;
     }
-    
+
     @SuppressLint("NewApi")
 	public void fireActivity(int icon, String title, String text, Class targetActivity) {
     	Intent resultIntent = new Intent();
@@ -36,12 +38,12 @@ public class Notifier {
         resultIntent.setAction(Intent.ACTION_MAIN);
         resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         PendingIntent pi = PendingIntent.getActivity(mContext, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification.Builder builder = new Notification.Builder(mContext);
-    	builder.setSmallIcon(icon);
-        builder.setContentTitle(title);
-    	builder.setContentText(text);
+    	builder.setSmallIcon(icon).setContentTitle(title).setContentText(text);
+        builder.setOngoing(mOnGoing);
     	builder.setContentIntent(pi);
-    	builder.setOngoing(mOnGoing);
+
     	NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     	manager.notify(0, builder.build());
     }

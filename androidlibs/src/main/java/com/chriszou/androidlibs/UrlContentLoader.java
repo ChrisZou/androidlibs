@@ -1,6 +1,6 @@
 /**
  * UrlContentLoader.java
- * 
+ *
  * Created by zouyong on Aug 1, 2014,2014
  */
 package com.chriszou.androidlibs;
@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 /**
+ * Class for loading content from a given url
  * @author zouyong
  *
  */
@@ -26,13 +27,12 @@ public class UrlContentLoader {
 
 	/**
 	 * This will be executed in the same thread as the caller.
-	 * @param callBack
 	 * @throws IOException
 	 */
 	public String executeSync() throws IOException{
 		URL url = new URL(mUrl);
 		InputStream is = url.openStream();
-		String contentString = inputStreamToString(is);
+		String contentString = StreamUtil.getString(is);
 		is.close();
 		return contentString;
 	}
@@ -50,7 +50,7 @@ public class UrlContentLoader {
 				try {
 					URL url = new URL(mUrl);
 					InputStream is = url.openStream();
-					final String contentString = inputStreamToString(is);
+					final String contentString = StreamUtil.getString(is);
 					is.close();
 
 					Runnable run = new Runnable() {
@@ -78,23 +78,6 @@ public class UrlContentLoader {
 	}
 
 
-	// Slow Implementation
-	private String inputStreamToString(InputStream is) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		String line = "";
-
-		// Wrap a BufferedReader around the InputStream
-		BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-
-		// Read response until the end
-		while ((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
-
-		// Return full string
-		return sb.toString();
-	}
-
 	/**
 	 * Callback listener for loading url content
 	 * @author zouyong
@@ -116,11 +99,9 @@ public class UrlContentLoader {
 		public abstract void onSucceed(String content);
 
 		@Override
-		public void onFailed(String msg) {
-			L.e("Error when loading content: "+msg);
-		}
+		public void onFailed(String msg) {  L.e("Error when loading content: "+msg); }
+
 		@Override
-		public void onCanceld() {
-		}
+		public void onCanceld() {}
 	}
 }

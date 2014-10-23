@@ -1,6 +1,6 @@
 /**
  * TimeHelper.java
- * 
+ *
  * Created by zouyong on Sep 29, 2014,2014
  */
 package com.chriszou.androidlibs;
@@ -22,6 +22,12 @@ public class TimeHelper {
 		return getTimeFormat("yyyy-MM-dd", System.currentTimeMillis());
 	}
 
+    /**
+     * Format the time and return a String in the given format
+     * @param format
+     * @param time millisecond in UTC
+     * @return
+     */
 	public static String getTimeFormat(String format, long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(new Date(time));

@@ -3,57 +3,78 @@ package com.chriszou.androidlibs;
 import android.util.Log;
 
 
+/**
+ * A helper method for logging to logcat
+ */
 public class L {
+    public static boolean debug = true;
+
 	public static String TAG = "zyzy";
-	public static boolean debug = true;
-
 	private static final String CLASS_METHOD_LINE_FORMAT = "%s.%s() Line:%d---------%s";
-	public static void l(String msg) {
+
+    /**
+     * Log using android.util.Log.d
+     * @param msg
+     */
+    public static void l(String msg) {
 		if(debug) {
-			StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];
-			String className = traceElement.getClassName();
-			String simpleClassName = className.contains(".")?className.substring(className.lastIndexOf(".")+1):className;
-
-			String logText = String.format(CLASS_METHOD_LINE_FORMAT, simpleClassName, traceElement.getMethodName(),
-					traceElement.getLineNumber(), msg.toString());
-
+            String logText = getLogText(msg);
 			Log.d(TAG, logText);
 		}
 	}
 
+    /**
+     * Log an error message using android.util.Log.e
+     * @param msg
+     */
 	public static void e(String msg) {
 		if (debug) {
-			StackTraceElement traceElement = Thread.currentThread().getStackTrace()[3];
-			String className = traceElement.getClassName();
-			String simpleClassName = className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
-
-			String logText = String.format(CLASS_METHOD_LINE_FORMAT, simpleClassName, traceElement.getMethodName(),
-					traceElement.getLineNumber(), msg.toString());
-
+            String logText = getLogText(msg);
 			Log.e(TAG, logText);
 		}
 	}
 
+    /**
+     * Trace the call stack of current method
+     */
 	public static void trace() {
-		StackTraceElement[] traceElements = Thread.currentThread().getStackTrace();
-		Log.d("zyzy", "trace-------------------------------------------------------------------------");
+		Log.d(TAG, "trace-------------------------------------------------------------------------");
+
+        StackTraceElement[] traceElements = Thread.currentThread().getStackTrace();
 		int len = traceElements.length;
 		for (int i=len-1; i>=0; i--) {
 			StackTraceElement traceElement = traceElements[i];
-			String logText = String.format(CLASS_METHOD_LINE_FORMAT, traceElement.getClassName(), traceElement.getMethodName(),
-					traceElement.getLineNumber(), traceElement.getFileName());
-			Log.d("zyzy", logText);// 打印Log
+			String logText = formatLogText(traceElement, i);
+			Log.d(TAG, logText);
 		}
-		Log.d("zyzy", "end trace-------------------------------------------------------------------------");
+
+		Log.d(TAG, "end trace-------------------------------------------------------------------------");
 	}
 
 	/**
-	 * Function: Throws an exception containing the detailed message. Should be used ONLY IN DEVELOPMENT AND TESTING.
-	 * 
+	 * Throws an exception containing the detailed message. Should be used ONLY IN DEVELOPMENT AND TESTING.
 	 */
 	public static void error(String msg) {
 		if(debug) {
 			throw new RuntimeException(msg);
 		}
 	}
+
+
+
+
+    private static String getLogText(Object obj) {
+        StackTraceElement traceElement = Thread.currentThread().getStackTrace()[4];
+        return formatLogText(traceElement, obj);
+    }
+
+    private static String formatLogText(StackTraceElement traceElement, Object obj) {
+        String className = traceElement.getClassName();
+        String simpleClassName = className.contains(".")?className.substring(className.lastIndexOf(".")+1):className;
+        String methodName = traceElement.getMethodName();
+        int lineNumber = traceElement.getLineNumber();
+
+        String logText = String.format(CLASS_METHOD_LINE_FORMAT, simpleClassName, methodName, lineNumber, obj.toString());
+        return logText;
+    }
 }

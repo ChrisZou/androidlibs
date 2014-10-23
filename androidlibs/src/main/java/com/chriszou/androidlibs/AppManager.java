@@ -16,15 +16,16 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 
 /**
+ * Helper class for retrieving application information from device
  * @author zouyong
  *
  */
 public class AppManager{
     private Context mContext;
-    private PackageManager mManager;
-    public AppManager(Context context){
+    private PackageManager mPackageManager;
+    private AppManager(Context context){
         mContext = context;
-        mManager = mContext.getPackageManager();
+        mPackageManager = mContext.getPackageManager();
     }
 
     public static AppManager getInstance(Context context) {
@@ -38,11 +39,11 @@ public class AppManager{
     public List<AppInfo> getAllApps(Context context) {
 
         //get a list of installed apps.
-        List<ApplicationInfo> packages = mManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        List<ApplicationInfo> packages = mPackageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         List<AppInfo> results = new ArrayList<AppInfo>();
         for (ApplicationInfo applicationInfo : packages) {
-            Intent startIntent = mManager.getLaunchIntentForPackage(applicationInfo.packageName);
+            Intent startIntent = mPackageManager.getLaunchIntentForPackage(applicationInfo.packageName);
             if(startIntent==null) {
                 continue;
             }
@@ -61,7 +62,7 @@ public class AppManager{
      */
     public Drawable getAppIcon(String packageName){
         try {
-            return mManager.getApplicationIcon(packageName);
+            return mPackageManager.getApplicationIcon(packageName);
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -75,8 +76,8 @@ public class AppManager{
      */
     public String getAppNameFromPkg(String pkgName){
         try {
-            ApplicationInfo appInfo = mManager.getApplicationInfo(pkgName, 0);
-            return appInfo.loadLabel(mManager).toString();
+            ApplicationInfo appInfo = mPackageManager.getApplicationInfo(pkgName, 0);
+            return appInfo.loadLabel(mPackageManager).toString();
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -89,7 +90,7 @@ public class AppManager{
      * @return
      */
     public Intent getStartIntent(String pkg) {
-        return mManager.getLaunchIntentForPackage(pkg);
+        return mPackageManager.getLaunchIntentForPackage(pkg);
     }
 
 }

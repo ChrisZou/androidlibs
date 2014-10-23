@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.chriszou.androidlibs;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 
 /**
+ * Listener when user presses "Enter" on the keyboard
  * @author Chris
  *
  */
@@ -15,7 +16,7 @@ public abstract class OnEnterListener implements OnKeyListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.view.View.OnKeyListener#onKey(android.view.View, int,
 	 * android.view.KeyEvent)
 	 */

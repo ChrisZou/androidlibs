@@ -1,12 +1,12 @@
 /**
  * Logger.java
- * 
+ *
  * Created by zouyong on Sep 17, 2014,2014
  */
 package com.chriszou.androidlibs;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
 
 import android.content.Context;
 import android.os.Environment;
@@ -35,18 +35,15 @@ public class Logger {
 	}
 
 	public static void log(Context context, String msg) {
-		try {
-			FileWriter fileWriter = new FileWriter(getLogFilePath(context), true);
-			msg = "\n"+getTimeString()+": "+msg+"\n";
-			fileWriter.write(msg);
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        try {
+            msg = "\n"+ currentTime()+": "+msg+"\n";
+            FileUtils.append(getLogFilePath(context), msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	private static String getTimeString() {
+	private static String currentTime() {
 		return CalendarUtil.getDateTimeString();
 	}
 }

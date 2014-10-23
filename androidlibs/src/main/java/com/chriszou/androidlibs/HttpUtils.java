@@ -17,10 +17,19 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 /**
+ * Util class for handling http request and URL content loading, etc.
  * @author Chris
  *
  */
-public class UrlUtils {
+public class HttpUtils {
+    /**
+     * Send a Post request to the url with the given json.
+     * @param url
+     * @param jsonString
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
 	public static HttpResponse postJson(String url, String jsonString) throws ClientProtocolException, IOException {
 		HttpPost post = new HttpPost(url);
 		post.setHeader("Content-Type", "application/json");

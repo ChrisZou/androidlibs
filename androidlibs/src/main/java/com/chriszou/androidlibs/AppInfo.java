@@ -11,19 +11,26 @@ import android.graphics.drawable.Drawable;
 import java.io.Serializable;
 
 /**
+ * Incapsulate an application's info
  * @author zouyong
  *
  */
 public class AppInfo implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * package name
+     */
     public String pkgName;
 
+    /**
+     * Name of the application, as shown in a launcher application or home screen
+     */
     public String name;
 
+    /**
+     * The icon of the app, shown in a launcher application or home screen
+     */
     public Drawable icon;
 
     public AppInfo() {}

@@ -1,6 +1,6 @@
 /**
  * AlarmHelper.java
- * 
+ *
  * Created by zouyong on Aug 19, 2014,2014
  */
 package com.chriszou.androidlibs;
@@ -25,16 +25,23 @@ public class AlarmHelper {
 		this.mContext = context;
 	}
 
-	public void setAlarm(Context context, int id, long time, String runnerName, Bundle extras) {
+    /**
+     * Set up an alarm
+     * @param id the alarm id
+     * @param time the time in millisecond at when this alarm should go off
+     * @param runnerClassName name of a subclass of AlarmRunner, this will get called when the alarm goes off.
+     * @param extras extra data that will be set to the intent delivered to the AlarmRunner when the alarm goes off.
+     */
+	public void setAlarm(int id, long time, String runnerClassName, Bundle extras) {
 		Intent intent = new Intent(mContext, AlarmReceiver.class);
 		intent.putExtra(EXTRA_EXTRA, extras);
-		intent.putExtra(AlarmReceiver.EXTRA_STRING_RUNNER, runnerName);
-		PendingIntent pi = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		intent.putExtra(AlarmReceiver.EXTRA_STRING_RUNNER, runnerClassName);
+		PendingIntent pi = PendingIntent.getBroadcast(mContext, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-		AlarmManager aManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+		AlarmManager aManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
 		aManager.set(AlarmManager.RTC, time, pi);
 
-		Logger.log(context, "Set alarm on: "+CalendarUtil.getDateTimeString(time));
+		Logger.log(mContext, "Set alarm on: "+CalendarUtil.getDateTimeString(time));
 		L.l("set alarm on: "+CalendarUtil.getDateTimeString(time));
 	}
 }
