@@ -1,9 +1,11 @@
 /**
- * 
+ *
  */
 package com.chriszou.androidlibs;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -16,7 +18,7 @@ import org.apache.http.params.HttpParams;
 
 /**
  * @author Chris
- * 
+ *
  */
 public class UrlUtils {
 	public static HttpResponse postJson(String url, String jsonString) throws ClientProtocolException, IOException {
@@ -30,4 +32,19 @@ public class UrlUtils {
 		HttpResponse response = client.execute(post);
 		return response;
 	}
+
+    /**
+     * Get the body from the HttpResponse and return as a String
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    public static String responseToString(HttpResponse response) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+        StringBuilder builder = new StringBuilder();
+        for (String line = null; (line = reader.readLine()) != null;) {
+            builder.append(line).append("\n");
+        }
+        return builder.toString().trim();
+    }
 }
