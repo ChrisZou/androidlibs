@@ -1,6 +1,6 @@
 /**
  * BaseListAdapter.java
- * 
+ *
  * Created by zouyong on 7:10:15 AM, 2014
  */
 package com.chriszou.androidlibs;
@@ -20,18 +20,18 @@ import android.widget.BaseAdapter;
  */
 public abstract class BaseListAdapter<E> extends BaseAdapter {
 
-    protected List<E> mData; 
+    protected List<E> mData;
     protected LayoutInflater mInflater;
-    
+
     public BaseListAdapter(Context context, List<E> data) {
         mData = new ArrayList<E>();
     	for(E e: data){
     		mData.add(e);
     	}
-        
+
     	mInflater = LayoutInflater.from(context);
     }
-    
+
     /**
      * Add an element
      * @param e
@@ -66,13 +66,12 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
     	mData.remove(index);
         notifyDataSetChanged();
     }
-    
+
 	/* (non-Javadoc)
 	 * @see android.widget.Adapter#getCount()
 	 */
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mData.size();
 	}
 
@@ -81,7 +80,6 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
 	 */
 	@Override
 	public E getItem(int position) {
-		// TODO Auto-generated method stub
         return mData.get(position);
 	}
 
@@ -90,7 +88,6 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
 	 */
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
