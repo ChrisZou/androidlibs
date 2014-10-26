@@ -1,5 +1,6 @@
 package com.chriszou.androidlibs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -12,17 +13,17 @@ public class Toaster {
      * @param context
      * @param textResId
      */
-	public static void s(Context context, int textResId) {
-		Toast.makeText(context, textResId, Toast.LENGTH_SHORT).show();
-	}
+	public static void s(final Activity context, final int textResId) {
+        s(context, context.getString(textResId));
+    }
 
     /**
      * Show a toast in LENGTH_SHORT;
      * @param context
      * @param msg
      */
-	public static void s(Context context, String msg) {
-		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	public static void s(final Activity context, final String msg) {
+        toastOnUiThread(context, msg, Toast.LENGTH_SHORT);
 	}
 
     /**
@@ -30,8 +31,8 @@ public class Toaster {
      * @param context
      * @param stringResId
      */
-    public static void l(Context context, int stringResId) {
-        Toast.makeText(context, stringResId, Toast.LENGTH_LONG).show();
+    public static void l(Activity context, int stringResId) {
+        l(context, context.getString(stringResId));
     }
 
     /**
@@ -39,8 +40,23 @@ public class Toaster {
      * @param context
      * @param msg
      */
-    public static void l(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    public static void l(Activity context, String msg) {
+        toastOnUiThread(context, msg, Toast.LENGTH_LONG);
     }
 
+    /**
+     * Make a toast on the UIThread of the activity.
+     * @param activity
+     * @param str
+     * @param length
+     */
+    private static void toastOnUiThread(final Activity activity, final String str, int length) {
+        final int len = length==Toast.LENGTH_SHORT ? length : Toast.LENGTH_LONG;
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, str, len).show();
+            }
+        });
+    }
 }
