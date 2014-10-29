@@ -26,3 +26,4 @@ local.properties
 .idea/workspace.xml
 .gradle
 **/build/
+*.iml
