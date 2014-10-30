@@ -23,7 +23,7 @@ local.properties
 .project
 
 # Android Studio
-.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.idea/workspace.xml
 .gradle
 **/build/
 *.iml
