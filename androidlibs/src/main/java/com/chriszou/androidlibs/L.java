@@ -60,8 +60,14 @@ public class L {
 		}
 	}
 
-
-
+    /**
+     *
+     */
+    public static void l(String format, Object... obj) {
+        String msg = String.format(format, obj);
+        String logText = getLogText(msg);
+        Log.d(TAG, logText);
+    }
 
     private static String getLogText(Object obj) {
         StackTraceElement traceElement = Thread.currentThread().getStackTrace()[4];

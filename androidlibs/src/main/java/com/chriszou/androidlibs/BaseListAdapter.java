@@ -5,13 +5,13 @@
  */
 package com.chriszou.androidlibs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * An implementation of BaseAdapter that uses a List as data source.
@@ -64,6 +64,11 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
      */
     public void remove(int index) {
     	mData.remove(index);
+        notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        mData.clear();
         notifyDataSetChanged();
     }
 

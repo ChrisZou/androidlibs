@@ -3,19 +3,11 @@
  */
 package com.chriszou.androidlibs;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -23,6 +15,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Util class for handling http request and URL content loading, etc.
@@ -65,10 +65,8 @@ public class HttpUtils {
         for (Header header:extraHeaders) {
             post.setHeader(header);
         }
-        HttpParams params = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(params, 5 * 1000);
-        HttpConnectionParams.setSoTimeout(params, 5 * 1000);
-        DefaultHttpClient client = new DefaultHttpClient(params);
+
+        HttpClient client = timeoutHttpClient();
 
         HttpResponse response = client.execute(post);
         return response;
@@ -87,6 +85,15 @@ public class HttpUtils {
             builder.append(line).append("\n");
         }
         return builder.toString().trim();
+    }
+
+    /**
+     * Perform a delete request
+     */
+    public static HttpResponse deleteRequest(String url) throws IOException {
+        HttpDelete deleteRequest = new HttpDelete(url);
+        HttpClient client = timeoutHttpClient();
+        return client.execute(deleteRequest);
     }
 
     /**
@@ -118,6 +125,10 @@ public class HttpUtils {
         return content;
     }
 
+    /**
+     * A DefaultHttpClient with 10 seconds of timeout
+     * @return
+     */
     private static DefaultHttpClient timeoutHttpClient() {
         HttpParams params = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(params, 5 * 1000);
@@ -126,4 +137,18 @@ public class HttpUtils {
 
         return client;
     }
+
+    /**
+     * If an HttpResponse indicate OK
+     * @param response
+     * @return
+     */
+    public static boolean responseOK(HttpResponse response) {
+        if (response == null || response.getStatusLine() == null) {
+            return false;
+        }
+
+        return response.getStatusLine().getStatusCode() == 200;
+    }
 }
+
