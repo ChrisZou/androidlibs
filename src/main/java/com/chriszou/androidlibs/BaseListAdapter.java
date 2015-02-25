@@ -63,18 +63,22 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
      * @param es
      */
     public void addAll(E[] es){
-        for(E e: es) {
-        	mData.add(e);
+        if (es != null) {
+            for(E e: es) {
+                mData.add(e);
+            }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
     /**
      * Add several elements from a collection
      * @param es
      */
     public void addAll(Collection<E> es) {
-    	mData.addAll(es);
-        notifyDataSetChanged();
+        if (es != null) {
+            mData.addAll(es);
+            notifyDataSetChanged();
+        }
     }
 
     /**
