@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.chriszou.androidlibs.L.l;
+
 /**
  * Created by Chris on 2/24/15.
  */
@@ -29,6 +31,7 @@ public class Downloader {
     }
 
     public void start() {
+        l("start download from: %s, to: %s", mUrl, mOutputPath);
         mContext.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +39,6 @@ public class Downloader {
             }
         });
     }
-
 
     private class UpgradeTask extends AsyncTask<String, Integer, Boolean> {
         public UpgradeTask() {
@@ -47,6 +49,7 @@ public class Downloader {
         @Override
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
