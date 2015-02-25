@@ -6,6 +6,7 @@
 package com.chriszou.androidlibs;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -37,4 +38,15 @@ public class TimeHelper {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(new Date(time));
 	}
+
+    public static long getNextHourAndMinite(int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        long millis = c.getTimeInMillis();
+        while(millis<System.currentTimeMillis()) {
+            millis += DAY_DURATION_MILLIS;
+        }
+        return millis;
+    }
 }

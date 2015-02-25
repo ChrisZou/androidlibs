@@ -59,9 +59,8 @@ public class HttpUtils {
     public static HttpResponse postJson(String url, String jsonString, List<Header> extraHeaders) throws ClientProtocolException, IOException {
 
         HttpPost post = new HttpPost(url);
-        post.setHeader("Content-Type", "application/json");
+        post.setHeader(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON);
         post.setEntity(new StringEntity(jsonString, "UTF-8"));
-        Header[] headers = new Header[extraHeaders.size()];
         for (Header header:extraHeaders) {
             post.setHeader(header);
         }

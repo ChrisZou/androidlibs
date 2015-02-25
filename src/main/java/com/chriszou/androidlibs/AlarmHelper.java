@@ -44,4 +44,16 @@ public class AlarmHelper {
 		Logger.log(mContext, "Set alarm on: "+CalendarUtil.getDateTimeString(time));
 		L.l("set alarm on: "+CalendarUtil.getDateTimeString(time));
 	}
+
+    public void cancelAlarm(int id, String runnerClassName, Bundle extras) {
+        Intent intent = new Intent(mContext, AlarmReceiver.class);
+        intent.putExtra(EXTRA_EXTRA, extras);
+        intent.putExtra(AlarmReceiver.EXTRA_STRING_RUNNER, runnerClassName);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager aManager = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+        aManager.cancel(pi);
+
+        Logger.log(mContext, "Cancel alarm with ID: "+id);
+    }
 }

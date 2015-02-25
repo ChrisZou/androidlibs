@@ -61,5 +61,7 @@ public class Prefs {
     	sPreferences.edit().putStringSet(key, values).commit();
     }
 
-
+    public static void remove(String key) {
+        sPreferences.edit().remove(key).commit();
+    }
 }

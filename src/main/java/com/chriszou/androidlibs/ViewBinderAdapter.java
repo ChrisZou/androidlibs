@@ -10,14 +10,23 @@ import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * @author zouyong
  *
  */
 public class ViewBinderAdapter<E> extends BaseListAdapter<E>{
-    private ViewBinder<E> mViewBinder;
+    private ViewBinder<E> mViewBinder = sDefaultBinder;
     private int mItemLayoutRes;
+    /**
+     * @param context
+     * @param data
+     */
+    public ViewBinderAdapter(Context context, List<E> data) {
+        this(context, data, sDefaultBinder);
+    }
+
 	/**
 	 * @param context
 	 * @param data
@@ -54,4 +63,16 @@ public class ViewBinderAdapter<E> extends BaseListAdapter<E>{
 		public void bindView(int position, View view, E item, ViewGroup parent);
 	}
 
+    private static ViewBinder sDefaultBinder = new ViewBinder() {
+        @Override
+        public int getLayoutRes() {
+            return 0;
+        }
+
+        @Override
+        public void bindView(int position, View view, Object item, ViewGroup parent) {
+            TextView textView = (TextView) view;
+            textView.setText(item.toString());
+        }
+    };
 }
