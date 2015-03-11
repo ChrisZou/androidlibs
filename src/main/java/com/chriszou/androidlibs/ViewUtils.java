@@ -60,6 +60,15 @@ public class ViewUtils {
         }
     }
 
+    public static boolean inputEmpty(EditText editText) {
+        if (editText == null) {
+            return true;
+        }
+
+        return !inputNotEmpty(editText);
+    }
+
+
     /**
      * Check if the edittext input is empty, NOTE: All spaces will
      * @param editText
@@ -94,5 +103,23 @@ public class ViewUtils {
 
     public static void showView(View view, boolean show) {
         hideView(view, !show);
+    }
+
+    public static void animateShow(View view) {
+        view.setAlpha(0);
+        view.animate().alpha(1).setDuration(300).start();
+    }
+
+    public static void animateShow(View view, long delay) {
+        view.setAlpha(0);
+        view.animate().alpha(1).setDuration(300).setStartDelay(delay).start();
+    }
+
+    public static void animateGone(View view) {
+        view.animate().alpha(0).setDuration(300).start();
+    }
+
+    public static void animateGone(View view, long delay) {
+        view.animate().alpha(0).setDuration(300).setStartDelay(delay).start();
     }
 }

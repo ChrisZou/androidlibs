@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 
+import static com.chriszou.androidlibs.L.l;
+
 /**
  * Listener when user presses "Enter" on the keyboard
  * @author Chris
@@ -22,7 +24,7 @@ public abstract class OnEnterListener implements OnKeyListener {
 	 */
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_ENTER) {
+        if (event.getAction()==KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
 			onEnter();
 			return true;
 		}

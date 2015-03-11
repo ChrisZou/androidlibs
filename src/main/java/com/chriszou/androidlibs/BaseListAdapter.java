@@ -148,4 +148,7 @@ public abstract class BaseListAdapter<E> extends BaseAdapter {
 		return position;
 	}
 
+    public boolean contains(E item) {
+        return mData==null ? false : mData.contains(item);
+    }
 }
