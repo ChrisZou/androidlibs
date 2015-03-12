@@ -19,6 +19,11 @@ public class GsonUtils {
         return sGson.toJson(obj);
     }
 
+    public static JSONObject toJSONObject(Object obj) throws JSONException {
+        return new JSONObject(toJson(obj));
+    }
+
+
     public static <T> T fromJson(String userStr, Class<T> clazz) throws JSONException {
         if(userStr==null) return null;
         return fromJson(new JSONObject(userStr), clazz);
