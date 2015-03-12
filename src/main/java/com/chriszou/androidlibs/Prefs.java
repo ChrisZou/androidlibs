@@ -46,9 +46,13 @@ public class Prefs {
     }
     
     public static String getString(String key, String defValue){
-    	return sPreferences.getString(key, defValue);
+        return sPreferences.getString(key, defValue);
     }
-    
+
+    public static String getString(String key){
+        return getString(key, null);
+    }
+
     public static void putString(String key, String value){
     	sPreferences.edit().putString(key, value).commit();
     }
