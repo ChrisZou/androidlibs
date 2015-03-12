@@ -29,6 +29,15 @@ public class Toaster {
 	}
 
     /**
+     * Show a toast in LENGTH_SHORT if current is Debug mode
+     * @param context
+     * @param msg
+     */
+    public static void d(final Activity context, final String msg) {
+        if (BuildConfig.DEBUG) toastOnUiThread(context, msg, Toast.LENGTH_SHORT);
+    }
+
+    /**
      * Show a toast in LENGTH_LONG;
      * @param context
      * @param stringResId
@@ -38,6 +47,8 @@ public class Toaster {
             l(context, context.getString(stringResId));
         }
     }
+
+
 
     /**
      * Show a toast in LENGTH_LONG;
@@ -66,4 +77,6 @@ public class Toaster {
             }
         });
     }
+
+
 }
