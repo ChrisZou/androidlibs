@@ -10,7 +10,7 @@ import java.util.Objects;
  * A helper method for logging to logcat
  */
 public class L {
-    public static boolean debug = true;
+    public static boolean debug = BuildConfig.DEBUG;
 
     public static String TAG = "zyzy";
     private static final String CLASS_METHOD_LINE_FORMAT = "%s.%s() Line:%d---------%s";

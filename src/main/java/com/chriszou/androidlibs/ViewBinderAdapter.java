@@ -54,7 +54,14 @@ public class ViewBinderAdapter<E> extends BaseListAdapter<E>{
         	convertView = mInflater.inflate(mItemLayoutRes, null);
         }
 
-        mViewBinder.bindView(position, convertView, getItem(position), parent);
+        try {
+            //Typically if exception were thrown here, you don't have much to do but to let the app crash.
+            //So we do a try catch here to prevent this
+            mViewBinder.bindView(position, convertView, getItem(position), parent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return convertView;
 	}
 

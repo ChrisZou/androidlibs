@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 
+import static com.chriszou.androidlibs.L.l;
+
 /**
  * Listener when user presses "Enter" on the keyboard
  * @author Chris

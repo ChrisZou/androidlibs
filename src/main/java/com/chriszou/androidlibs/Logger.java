@@ -19,18 +19,15 @@ import android.os.Environment;
 public class Logger {
 
 	private static final String LOG_DIR = Environment.getExternalStorageDirectory().getAbsolutePath()+"/my_app_logs/";
+    static {
+        File f = new File(LOG_DIR);
+        if(!f.exists()) {
+            f.mkdirs();
+        }
+    }
 
 	private static String getLogFilePath(Context context) {
-		String appName = context.getString(R.string.app_name);
-		while (appName.contains(" ")) {
-			appName = appName.replace(" ", "_");
-		}
-
-		File f = new File(LOG_DIR);
-		if(!f.exists()) {
-			f.mkdirs();
-		}
-
+		String appName = context.getPackageName().replace(" ", "_");
 		return (LOG_DIR+"/"+appName+".log");
 	}
 
