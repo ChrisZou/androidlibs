@@ -24,7 +24,7 @@ public abstract class OnEnterListener implements OnKeyListener {
 	 */
 	@Override
 	public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction()==KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
+		if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_UP) {
 			onEnter();
 			return true;
 		}

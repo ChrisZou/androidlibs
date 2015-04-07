@@ -2,9 +2,6 @@ package com.chriszou.androidlibs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import java.io.FileOutputStream;
@@ -41,8 +38,7 @@ public class Downloader {
     }
 
     private class UpgradeTask extends AsyncTask<String, Integer, Boolean> {
-        public UpgradeTask() {
-        }
+        public UpgradeTask() {}
 
         ProgressDialog mProgressDialog;
 
@@ -50,6 +46,7 @@ public class Downloader {
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(mContext);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setMessage(mContext.getString(R.string.msg_downloading));
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
@@ -127,7 +124,7 @@ public class Downloader {
 
     private OnDownloadCompleteListener mOnDownloadCompleteListener;
 
-    public void setOnDownloadCompleteListenerListener(OnDownloadCompleteListener listener) {
+    public void setOnDownloadCompleteListener(OnDownloadCompleteListener listener) {
         mOnDownloadCompleteListener = listener;
     }
 
