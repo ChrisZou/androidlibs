@@ -2,7 +2,10 @@ package com.chriszou.androidlibs;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Chris on 3/19/15.
@@ -14,17 +17,24 @@ public class TextViewBinder {
     public static void bindViewsUsingTag(Hashable hash, View view) {
         if (hash==null || view==null) return;
         if (view instanceof TextView) {bindText(hash, view); return;}
+        if (view instanceof ImageView) { loadImageView(hash, view); return;}
+
         if (! (view instanceof ViewGroup)) return;
 
         ViewGroup viewGroup = (ViewGroup) view;
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View v = viewGroup.getChildAt(i);
-            if(v instanceof ViewGroup) {
-                bindViewsUsingTag(hash, v);
-            } else if (v instanceof TextView) {
-                bindText(hash, v);
-            }
+            bindViewsUsingTag(hash, viewGroup.getChildAt(i));
         }
+    }
+
+    private static void loadImageView(Hashable hash, View view) {
+        if (hash==null || view==null || !(view instanceof ImageView) || view.getTag()==null || !(view.getTag() instanceof String)) return;
+
+        String tag = (String) view.getTag();
+        String url = hash.get(tag);
+        if (url==null) return;
+
+        Picasso.with(view.getContext()).load(url).into((ImageView) view);
     }
 
     private static void bindText(Hashable hash, View view) {
