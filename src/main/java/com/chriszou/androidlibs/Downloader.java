@@ -29,12 +29,7 @@ public class Downloader {
 
     public void start() {
         l("start download from: %s, to: %s", mUrl, mOutputPath);
-        mContext.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new UpgradeTask().execute(mUrl);
-            }
-        });
+        mContext.runOnUiThread(() -> new UpgradeTask().execute(mUrl));
     }
 
     private class UpgradeTask extends AsyncTask<String, Integer, Boolean> {

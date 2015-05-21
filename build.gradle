@@ -1,6 +1,14 @@
+plugins {
+    id "me.tatarka.retrolambda" version "3.1.0"
+}
 apply plugin: 'com.android.library'
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 19
     buildToolsVersion "21.1.1"
 
