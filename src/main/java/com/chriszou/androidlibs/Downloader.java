@@ -20,11 +20,16 @@ public class Downloader {
     private final Activity mContext;
     private final String mUrl;
     private final String mOutputPath;
+    private String dialogMessage;
 
     public Downloader(Activity context, String url, String outputPath) {
         mContext = context;
         this.mUrl = url;
         this.mOutputPath = outputPath;
+    }
+
+    public void setDialogMessage(String message) {
+        dialogMessage = message;
     }
 
     public void start() {
@@ -41,7 +46,8 @@ public class Downloader {
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(mContext);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setMessage(mContext.getString(R.string.msg_downloading));
+            if(dialogMessage==null) dialogMessage = mContext.getString(R.string.msg_downloading);
+            mProgressDialog.setMessage(dialogMessage);
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
