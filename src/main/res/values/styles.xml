@@ -71,9 +71,19 @@
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
     </style>
-<style name="hfiller">
+    <style name="hfiller">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">5dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="hff">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="hfw">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
 </resources>

@@ -1,6 +1,8 @@
 package com.chriszou.androidlibs;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +11,7 @@ import org.json.JSONObject;
  * Created by Chris on 1/27/15.
  */
 public class GsonUtils {
-    private static final Gson sGson = new Gson();
+    private static final Gson sGson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
     public static <T> T fromJson(JSONObject object, Class<T> clazz) {
         return sGson.fromJson(object.toString(), clazz);
