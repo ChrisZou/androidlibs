@@ -49,4 +49,13 @@ public class TimeHelper {
         }
         return millis;
     }
+
+    public static int getCurrentHour() {
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public static int getCurrentMinute() {
+        return Calendar.getInstance().get(Calendar.MINUTE);
+    }
 }
