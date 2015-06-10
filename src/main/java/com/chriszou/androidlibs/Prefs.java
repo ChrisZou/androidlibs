@@ -18,7 +18,8 @@ import android.preference.PreferenceManager;
  * To use it, call its init() in customized {@link Application} class's onCreate() method
  */
 public class Prefs {
-    
+    private static final String PREF_BOOL_FIRST_INSTALL = "pref_bool_first_install";
+
     private static SharedPreferences sPreferences;
     
     /**
@@ -68,4 +69,14 @@ public class Prefs {
     public static void remove(String key) {
         sPreferences.edit().remove(key).commit();
     }
+
+    public static void firstTimeInstallInit(Runnable run) {
+        boolean firstInstall = Prefs.getBoolean(PREF_BOOL_FIRST_INSTALL, true);
+        if (firstInstall) {
+            run.run();
+
+            Prefs.putBoolean(PREF_BOOL_FIRST_INSTALL, false);
+        }
+    }
+
 }
