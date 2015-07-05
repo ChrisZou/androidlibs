@@ -1,5 +1,6 @@
 package com.chriszou.androidlibs;
 
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -33,5 +34,9 @@ public class ResUtils {
         if (v == null || v.getId()==View.NO_ID) return null;
 
         return getResources().getResourceEntryName(v.getId());
+    }
+
+    public static ColorStateList getColorStateList(int colorRes) {
+        return getResources().getColorStateList(colorRes);
     }
 }
