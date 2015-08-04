@@ -27,6 +27,8 @@ public class FileUtils {
             text.append(line);
             text.append('\n');
         }
+        br.close();
+
         return text.toString();
     }
 

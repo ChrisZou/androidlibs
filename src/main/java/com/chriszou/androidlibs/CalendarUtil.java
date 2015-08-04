@@ -78,7 +78,7 @@ public class CalendarUtil {
 
 	public static boolean isToday(long time) {
 		String todayString = TimeHelper.getTodayString();
-		String timeString = TimeHelper.getTimeFormat("yyyy-MM-dd", time);
+		String timeString = TimeHelper.formatTime("yyyy-MM-dd", time);
 		return todayString.equals(timeString);
 	}
 

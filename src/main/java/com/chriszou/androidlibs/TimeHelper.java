@@ -25,19 +25,24 @@ public class TimeHelper {
 	 * @return
 	 */
 	public static String getTodayString() {
-		return getTimeFormat("yyyy-MM-dd", System.currentTimeMillis());
+		return formatTime("yyyy-MM-dd", System.currentTimeMillis());
 	}
 
     /**
-     * Format the time and return a String in the given format
+     * Format the time and return a String using the given format
      * @param format
      * @param time millisecond in UTC
      * @return
      */
-	public static String getTimeFormat(String format, long time) {
+	public static String formatTime(String format, long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(new Date(time));
 	}
+
+    public static String formatNow(String format) {
+        return formatTime(format, System.currentTimeMillis());
+    }
+
 
     public static long getNextHourAndMinite(int hourOfDay, int minute) {
         Calendar c = Calendar.getInstance();
@@ -58,4 +63,5 @@ public class TimeHelper {
     public static int getCurrentMinute() {
         return Calendar.getInstance().get(Calendar.MINUTE);
     }
+
 }

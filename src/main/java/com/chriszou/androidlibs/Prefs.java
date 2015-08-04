@@ -79,4 +79,7 @@ public class Prefs {
         }
     }
 
+    public static long getLong(String key, long defValue) {
+        return sPreferences.getLong(key, defValue);
+    }
 }
