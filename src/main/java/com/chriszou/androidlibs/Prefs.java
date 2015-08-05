@@ -9,7 +9,6 @@ import java.util.Set;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
 /**
@@ -81,5 +80,16 @@ public class Prefs {
 
     public static long getLong(String key, long defValue) {
         return sPreferences.getLong(key, defValue);
+    }
+
+    public static boolean neverBefore(String key, Runnable action) {
+        return neverBefore(key, action, true);
+    }
+
+    public static boolean neverBefore(String key, Runnable action, boolean autoToggle) {
+        boolean neverBefore = Prefs.getBoolean(key, true);
+        if(neverBefore) action.run();
+        if(autoToggle) putBoolean(key, false);
+        return neverBefore;
     }
 }
